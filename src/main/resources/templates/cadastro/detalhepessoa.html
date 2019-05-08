@@ -36,15 +36,19 @@
 		</div>
 		
 		<div class="row">
-			<form th:action="@{/salvartelefonePessoa/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" class="col s12">
+			<form th:action="@{/salvartelefonePessoa/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" class="col s12" th:object="${telefone}">
 				<div class="row">
-					<div class="input-field col s6">
-						<label class="active" for="numero">Número:</label>
-						<input id="numero" type="text" name="numero" class="validate">
+					<div class="input-field col s4">
+						<label class="active" for="id">Id:</label>
+						<input id="id" type="text" name="id" class="validate" th:field="*{id}" readonly="readonly">
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s4">
+						<label class="active" for="numero">Número:</label>
+						<input id="numero" type="text" name="numero" class="validate" th:field="*{numero}">
+					</div>
+					<div class="input-field col s4">
 						<label class="active" for="tipo">Tipo:</label>
-						<input id="tipo" type="text" name="tipo" class="validate">
+						<input id="tipo" type="text" name="tipo" class="validate" th:field="*{tipo}">
 					</div>					
 				</div>
 				<div class="row">
@@ -60,12 +64,17 @@
 					<tr>
 						<th>Número</th>
 						<th>Celular</th>
+						<th>Editar</th>
+						<th>Excluir</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="telefone : ${telefones}">
+						<td th:text="${telefone.id}"></td>
 						<td th:text="${telefone.numero}"></td>
 						<td th:text="${telefone.tipo}"></td>
+						<td><a th:href="@{/editarTelefonePessoa/{telefoneid}(telefoneid=${telefone.id})}"><i class="material-icons">edit</i></a></td>
+						<td><a th:href="@{/deletarTelefonePessoa/{telefoneid}(telefoneid=${telefone.id})}"><i class="material-icons" style="color: red;">delete</i></a></td>
 					</tr>		
 				</tbody>
 			</table>
